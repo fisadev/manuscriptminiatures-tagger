@@ -1,4 +1,4 @@
-# manuscriptminiatures-tagger
+# Manuscript Miniatures Tagger
 Automatic tagger of manuscript miniatures objects, using machine learning
 
 ![logo](logo.png)
