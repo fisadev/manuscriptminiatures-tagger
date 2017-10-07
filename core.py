@@ -23,10 +23,16 @@ class Miniature:
         """
         Download the picture file.
         """
-        url = settings.MINIATURE_URL.format(self.file_name)
-        response = requests.get(url)
-        with self.file_path.open("wb") as picture_file:
-            picture_file.write(response.content)
+        try:
+            url = settings.MINIATURE_URL.format(self.file_name)
+            response = requests.get(url)
+            with self.file_path.open("wb") as picture_file:
+                picture_file.write(response.content)
+        except Exception as err:
+            # clean possibly broken file
+            if self.file_path.exists():
+                self.file_path.unlink()
+            raise
 
     def __str__(self):
         return '<Miniature {} ({})>'.format(self.miniature_id, self.file_name)
