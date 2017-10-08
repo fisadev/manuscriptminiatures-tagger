@@ -101,4 +101,4 @@ ENV/
 .mypy_cache/
 
 # miniature files
-data/miniatures/*.jpg
+data/pictures/*.jpg
