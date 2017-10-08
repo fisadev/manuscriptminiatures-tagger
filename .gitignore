@@ -102,3 +102,4 @@ ENV/
 
 # miniature files
 data/pictures/*.jpg
+data/objects/*.json
