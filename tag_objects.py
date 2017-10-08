@@ -131,9 +131,9 @@ def tagging_loop(object_name, maximized=True):
 
         fig = ax.get_figure()
         fig.canvas.set_window_title(str(miniature))
-        fig.canvas.mpl_connect('button_press_event', on_click)
         fig.canvas.mpl_connect('key_press_event', on_key)
         fig.canvas.mpl_connect('motion_notify_event', on_move)
+        fig.canvas.mpl_connect('button_press_event', on_click)
 
         rect = Rectangle((0, 0), 0, 0, linewidth=1, edgecolor='r', facecolor='none')
         selection = fig.add_subplot(111)
