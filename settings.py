@@ -7,4 +7,4 @@ METADATA_CSV_PATH = Path('./data/miniatures_metadata.csv')
 OBJECTS_DIR = Path('./data/objects/')
 
 # objects tagger
-OBJECT_PREVIEW = Path('./last_object_preview.png')
+OBJECT_PREVIEW_PATH = Path('./last_object_preview.png')
