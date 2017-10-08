@@ -43,7 +43,7 @@ class Miniature:
         Read all the miniatures metadata, and return them as Miniature
         instances (ignoring bad lines in the csv).
         """
-        for line in settings.METADATA_CSV.open().readlines():
+        for line in settings.METADATA_CSV_PATH.open().readlines():
             fields = [field.strip()
                       for field in line.split(',')
                       if field.strip()]
