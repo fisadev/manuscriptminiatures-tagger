@@ -49,11 +49,13 @@ class Miniature:
                       if field.strip()]
 
             if len(fields) > 4:
+                tags = fields[5:] if len(fields) > 5 else []
+                tags = [tag.lower() for tag in tags]
                 yield Miniature(
                     manuscript_id=int(fields[0]),
                     miniature_id=int(fields[1]),
                     file_name=fields[2],
                     start_year=eval(fields[3]),
                     end_year=eval(fields[4]),
-                    tags=fields[5:] if len(fields) > 5 else [],
+                    tags=tags,
                 )
