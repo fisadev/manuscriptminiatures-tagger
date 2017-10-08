@@ -19,4 +19,4 @@ def download_pending_pictures():
 
 
 if __name__ == '__main__':
-    download_pending_miniatures()
+    download_pending_pictures()
