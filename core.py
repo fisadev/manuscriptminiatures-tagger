@@ -16,22 +16,22 @@ class Miniature:
     tags = attr.ib()
 
     @property
-    def file_path(self):
+    def picture_path(self):
         return Path(settings.MINIATURES_DIR) / self.file_name
 
-    def download_file(self):
+    def download_picture(self):
         """
         Download the picture file.
         """
         try:
             url = settings.MINIATURE_URL.format(self.file_name)
             response = requests.get(url)
-            with self.file_path.open("wb") as picture_file:
+            with self.picture_path.open("wb") as picture_file:
                 picture_file.write(response.content)
         except Exception as err:
             # clean possibly broken file
-            if self.file_path.exists():
-                self.file_path.unlink()
+            if self.picture_path.exists():
+                self.picture_path.unlink()
             raise
 
     def __str__(self):
