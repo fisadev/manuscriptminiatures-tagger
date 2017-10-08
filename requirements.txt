@@ -1,0 +1,5 @@
+requests
+attrs
+keras
+tensorflow-gpu
+matplotlib
