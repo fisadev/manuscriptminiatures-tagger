@@ -3,3 +3,4 @@ attrs
 keras
 tensorflow-gpu
 matplotlib
+pillow
