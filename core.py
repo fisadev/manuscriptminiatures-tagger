@@ -17,14 +17,14 @@ class Miniature:
 
     @property
     def picture_path(self):
-        return Path(settings.MINIATURES_DIR) / self.file_name
+        return settings.PICTURES_DIR / self.file_name
 
     def download_picture(self):
         """
         Download the picture file.
         """
         try:
-            url = settings.MINIATURE_URL.format(self.file_name)
+            url = settings.PICTURE_URL.format(self.file_name)
             response = requests.get(url)
             with self.picture_path.open("wb") as picture_file:
                 picture_file.write(response.content)
@@ -43,7 +43,7 @@ class Miniature:
         Read all the miniatures metadata, and return them as Miniature
         instances (ignoring bad lines in the csv).
         """
-        for line in open(settings.MINIATURES_METADATA).readlines():
+        for line in settings.METADATA_CSV.open().readlines():
             fields = [field.strip()
                       for field in line.split(',')
                       if field.strip()]
