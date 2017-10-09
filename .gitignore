@@ -104,3 +104,4 @@ ENV/
 data/pictures/*.jpg
 data/objects/*.json
 last_object_preview.png
+last_tagged_objects.json
