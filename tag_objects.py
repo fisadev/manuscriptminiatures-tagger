@@ -15,6 +15,7 @@ During tagging, you can:
     - press escape to quit
 """
 import sys
+import json
 
 import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
@@ -33,6 +34,26 @@ class TaggingStatus:
     current_index = attr.ib(default=0)
     last_click = attr.ib(default=None)
     keep_tagging = attr.ib(default=True)
+    last_tagged = attr.ib(default={})
+
+    def load_last_tagged(self):
+        """
+        Read (if present) the file that remembers which miniature was last
+        tagged for each object.
+        """
+        if settings.LAST_TAGGED_OBJECTS_PATH.exists():
+            with settings.LAST_TAGGED_OBJECTS_PATH.open() as last_tagged_file:
+                self.last_tagged = json.load(last_tagged_file)
+        else:
+            self.last_tagged = {}
+
+    def save_last_tagged(self):
+        """
+        Save a file with information regarding the last tagged miniature for
+        each object.
+        """
+        with settings.LAST_TAGGED_OBJECTS_PATH.open('w') as last_tagged_file:
+            json.dump(self.last_tagged, last_tagged_file)
 
 
 def tagging_loop(object_name, maximized=True):
@@ -40,6 +61,10 @@ def tagging_loop(object_name, maximized=True):
     Loop where the user interacts with the miniatures by tagging objects in them.
     """
     status = TaggingStatus()
+    status.load_last_tagged()
+
+    if object_name in status.last_tagged:
+        status.current_index = status.last_tagged[object_name]
 
     miniatures = list(Miniature.all())
 
@@ -80,6 +105,9 @@ def tagging_loop(object_name, maximized=True):
 
                     # infor the user
                     print('Tagged', tagged_object, 'in', miniature)
+
+                    status.last_tagged[object_name] = status.current_index
+                    status.save_last_tagged()
 
                     # reset clicks
                     status.last_click = None
