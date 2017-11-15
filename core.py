@@ -17,6 +17,7 @@ class Miniature:
     end_year = attr.ib()
     tags = attr.ib()
     objects = attr.ib(init=False, default=attr.Factory(list))
+    picture = attr.ib(init=False, default=None)
 
     @property
     def picture_path(self):
@@ -45,8 +46,8 @@ class Miniature:
         """
         Open the picture file with PIL, returning an Image instance.
         """
-        picture = Image.open(self.picture_path)
-        return picture
+        self.picture = Image.open(self.picture_path)
+        return self.picture
 
     def load_objects(self):
         """
