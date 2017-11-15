@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import attr
+from PIL import Image
 import requests
 
 import settings
