@@ -15,7 +15,7 @@ class Miniature:
     start_year = attr.ib()
     end_year = attr.ib()
     tags = attr.ib()
-    objects = attr.ib(init=False)
+    objects = attr.ib(init=False, default=attr.Factory(list))
 
     @property
     def picture_path(self):
