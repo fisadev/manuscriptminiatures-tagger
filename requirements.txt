@@ -6,3 +6,4 @@ matplotlib
 pillow
 docopt
 pandas
+scikit-learn
