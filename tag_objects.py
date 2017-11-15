@@ -73,8 +73,6 @@ def tagging_loop(object_name, maximized=True):
         miniature = miniatures[status.current_index]
         miniature.load_objects()
 
-        picture = Image.open(str(miniature.picture_path))
-
         def on_click(event):
             if event.button == 1:
                 x = int(round(event.xdata))
@@ -155,17 +153,28 @@ def tagging_loop(object_name, maximized=True):
                     print("Can't undo a saved tag")
 
         # show picture and map events
-        ax = plt.imshow(mpimg.imread(str(miniature.picture_path)))
+        try:
+            picture_path = str(miniature.picture_path)
+            picture = miniature.open_picture()
+            using_real_picture = True
+        except:
+            picture_path = str(settings.EMPTY_PICTURE_PATH)
+            picture = Image.open(picture_path)
+            using_real_picture = False
+
+        ax = plt.imshow(mpimg.imread(picture_path))
 
         fig = ax.get_figure()
         fig.canvas.set_window_title(str(miniature))
-        fig.canvas.mpl_connect('key_press_event', on_key)
-        fig.canvas.mpl_connect('motion_notify_event', on_move)
-        fig.canvas.mpl_connect('button_press_event', on_click)
 
-        rect = Rectangle((0, 0), 0, 0, linewidth=1, edgecolor='r', facecolor='none')
-        selection = fig.add_subplot(111)
-        selection.add_patch(rect)
+        fig.canvas.mpl_connect('key_press_event', on_key)
+        if using_real_picture:
+            fig.canvas.mpl_connect('motion_notify_event', on_move)
+            fig.canvas.mpl_connect('button_press_event', on_click)
+
+            rect = Rectangle((0, 0), 0, 0, linewidth=1, edgecolor='r', facecolor='none')
+            selection = fig.add_subplot(111)
+            selection.add_patch(rect)
 
         status.last_click = None
 
