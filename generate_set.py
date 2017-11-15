@@ -14,7 +14,7 @@ from random import randint
 from docopt import docopt
 
 from core import Miniature
-import settings
+from settings import OBJECTS_PICTURES_SETS_DIR
 
 
 def rectangle_to_square(rectangle, width, height):
@@ -132,16 +132,16 @@ def miniatures_with_info_about(object_name):
     return miniatures
 
 
-def save_pictures(object_name, set_name, rectangles):
+def save_pictures(object_name, subset_name, rectangles):
     """
-    Save all the rectangles from a set as separated picture files.
+    Save all the rectangles from a subset as separated picture files.
     """
-    set_path = settings.OBJECTS_PICTURES_SETS_DIR / object_name / set_name
+    subset_path = OBJECTS_PICTURES_SETS_DIR / object_name / subset_name
 
     for miniature, rectangle in rectangles:
-        file_name = '{}_{}_{}_{}_{}.png'.format(miniature.miniature_id,
+        file_name = '{}_{}_{}_{}_{}.jpg'.format(miniature.miniature_id,
                                                 *rectangle)
-        rectangle_path = set_path / file_name
+        rectangle_path = subset_path / file_name
         picture = miniature.picture.copy()
         picture = picture.crop(rectangle)
         picture.save(rectangle_path)
