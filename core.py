@@ -40,6 +40,13 @@ class Miniature:
                 self.picture_path.unlink()
             raise
 
+    def open_picture(self):
+        """
+        Open the picture file with PIL, returning an Image instance.
+        """
+        picture = Image.open(self.picture_path)
+        return picture
+
     def load_objects(self):
         """
         Load tagged objects from the json file.
